@@ -1,0 +1,3 @@
+bugs:
+    funçao adicionar, home, listar
+    terminar de fazer as funçoes
