@@ -38,21 +38,79 @@ def adicionarTarefa():
 #function that remove a task
 def removerTarefa():
     try:
-        listarTarefas()
-        indice = int(input('Digite o numero da tarefa que deseja remover: ')) - 1
-        with open(ARQUIVO, 'r') as delete:
-            linhas = delete.readlines()
-            if not linhas:
-                print('Nenhuma tarefa encontrada!!')
-                time.sleep(2)
-            else:
-                for i, linha in enumerate(linhas):
-                    print(f'{i+1} - {linha.strip()}')
+        with open(ARQUIVO, 'r') as arquivo:
+            tarefas = arquivo.readlines()
 
-                time.sleep(5)
+        if not tarefas:
+            print("Nenhuma tarefa para remover.")
+            return
+
+        # Listar as tarefas com número
+        for i, tarefa in enumerate(tarefas):
+            print(f"{i+1} - {tarefa.strip()}")
+
+        # Pedir o número da tarefa
+        indice = int(input("Digite o número da tarefa que deseja remover: ")) - 1
+
+        # Verificar se o número é válido
+        if indice < 0 or indice >= len(tarefas):
+            print("Número inválido.")
+            return
+
+        # Remover a tarefa e salvar o arquivo novamente
+        tarefa_removida = tarefas.pop(indice)
+
+        with open(ARQUIVO, 'w') as arquivo:
+            arquivo.writelines(tarefas)
+
+        print(f"Tarefa removida: {tarefa_removida.strip()}")
+
+    except FileNotFoundError:
+        print("Arquivo de tarefas não encontrado.")
+    except ValueError:
+        print("Digite um número válido.")
+    except Exception as e:
+        print(f"Ocorreu um erro: {e}")
 
 
+#function mark as done
+#funçao para marcar como feito
+def marcarConcluida():
+    try:
+        with open(ARQUIVO, 'r') as arquivo:
+            tarefas = arquivo.readlines()
 
+        if not tarefas:
+            print('Nenhuma tarefa para marcar como concluida')
+            return
+        
+        for i, tarefa in enumerate(tarefas):
+            print(f'{i+1} - {tarefa.strip()}')
+
+
+        indice = int(input('Digite o numero da tarefa que deseja concluir: ')) -1
+
+        if indice < 0 or indice >= len(tarefas):
+            print('Numero invalido')
+            return
+        
+        if "[x]" in tarefas[indice]:
+            print('Tarefa ja esta marcada como concluida!')
+            return
+        
+        tarefas[indice] = tarefas[indice].replace("[ ]", "[x]", 1)
+
+        with open(ARQUIVO, 'w') as arquivo:
+            arquivo.writelines(tarefas)
+
+    except FileNotFoundError:
+        print("Arquivo de tarefas não encontrado.")
+    except ValueError:
+        print("Digite um número válido.")
+    except Exception as e:
+        print(f"Ocorreu um erro: {e}")
+
+        
 
 
 

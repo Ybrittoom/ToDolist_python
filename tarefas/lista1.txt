@@ -1,4 +1,3 @@
-[ ] Comprar cafe
-[ ] Reuniao com a Microsoft as 16 horas.
-[ ] academia as 19 horas
+[x] Reuniao com a Microsoft as 16 horas.
 [ ] proteina 17 horas
+[ ] Pedal sabado 6 hrs da manha com a tropa
